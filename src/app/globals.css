@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 98%;
+    --foreground: 240 5% 30%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 5% 30%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 5% 30%;
+    --primary: 158 78% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 5% 30%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 90%;
+    --accent-foreground: 240 5% 30%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 145 63% 49%;
+    --success-foreground: 0 0% 100%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 158 78% 36%;
+    --chart-1: 158 78% 36%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 158 78% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 5% 94%;
+    --sidebar-accent-foreground: 158 78% 36%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 158 78% 36%;
+  }
+  .dark {
+    --background: 240 4% 10%;
+    --foreground: 0 0% 98%;
+    --card: 240 4% 13%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 4% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 158 78% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 4% 60%;
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 145 63% 49%;
+    --success-foreground: 0 0% 100%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 158 78% 46%;
+    --chart-1: 158 78% 46%;
+    --chart-2: 145 63% 49%;
+    --chart-3: 354 70% 54%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+    --sidebar-background: 240 4% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 158 78% 46%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4% 16%;
+    --sidebar-accent-foreground: 158 78% 46%;
+    --sidebar-border: 240 4% 16%;
+    --sidebar-ring: 158 78% 46%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced focus styles */
+  *:focus-visible {
+    @apply ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Theme sweep animation - smoother and faster */
+  .theme-sweep-transition {
+    will-change: clip-path;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+  
+  .theme-sweep-transition * {
+    animation-duration: 0ms !important;
+    transition-duration: 0ms !important;
+    will-change: auto;
+  }
+  
+  /* Force hardware acceleration for smoother animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-sweep-transition {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Ensure smooth clip-path animations */
+  @supports (clip-path: inset(0 0 0 0)) {
+    .theme-sweep-transition {
+      will-change: clip-path;
+    }
+  }
+
+  /* Fallback for browsers without clip-path support */
+  @supports not (clip-path: inset(0 0 0 0)) {
+    .theme-sweep-transition {
+      animation: themeSweepFallback 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    
+    @keyframes themeSweepFallback {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+  }
+}
